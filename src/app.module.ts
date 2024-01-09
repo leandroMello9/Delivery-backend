@@ -1,25 +1,28 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UserController } from './user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './models/User';
+import { UsersModule } from './modules/user.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import typeormConfig from './config/typeorm.config';
 
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: '',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'test',
-      entities: [User],
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [typeormConfig],
     }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return configService.get('typeorm');
+      },
+    }),
+    UsersModule
   ],
-  controllers: [AppController, UserController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
+  
+  exports: []
 })
 export class AppModule {}

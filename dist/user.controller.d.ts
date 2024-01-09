@@ -1,6 +1,9 @@
-import { AppService } from './app.service';
+import CreateUserDto from './dtos/request/CreateUserDto';
+import CreateUserService from './useCases/CreateUser/CreateUserImplement';
+import UserDto from './dtos/response/UserDto';
 export declare class UserController {
-    private readonly appService;
-    constructor(appService: AppService);
+    private userService;
+    constructor(userService: CreateUserService);
     getHello(): string;
+    create(user: CreateUserDto): Promise<UserDto>;
 }
