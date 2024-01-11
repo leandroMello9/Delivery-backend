@@ -9,32 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AuthenticatorUser = void 0;
 const common_1 = require("@nestjs/common");
+const jwt_1 = require("@nestjs/jwt");
 const HashPassword_1 = require("../../providers/HashPassword");
 const UserRepositoryInterface_1 = require("../../repository/User/UserRepositoryInterface");
-let CreateUserService = class CreateUserService {
-    constructor(userRepostory, hashPassword) {
-        this.userRepostory = userRepostory;
-        this.hashPassword = hashPassword;
+let AuthenticatorUser = class AuthenticatorUser {
+    constructor(userRepository, hashProvider, jwtService) {
+        this.userRepository = userRepository;
+        this.hashProvider = hashProvider;
+        this.jwtService = jwtService;
     }
-    async execute({ user_email, user_password }) {
-        const hash = await this.hashPassword.generateHash(user_password);
-        const usr = await this.userRepostory.create({
-            user_email,
-            user_password: hash
-        });
-        const userReturned = {
-            user_id: usr.user_id,
-            user_email: usr.user_email,
-            is_active: true
+    async auth(user_email, pass) {
+        const user = await this.userRepository.findOneUserByUserEmail(user_email);
+        const comparePass = await this.hashProvider.compareHash(pass, user?.user_password);
+        if (comparePass === false) {
+            throw new common_1.UnauthorizedException();
+        }
+        const { user_password, ...result } = user;
+        const payload = { sub: user.user_id, user_email: user.user_email };
+        return {
+            access_token: await this.jwtService.signAsync(payload)
         };
-        return userReturned;
     }
 };
-CreateUserService = __decorate([
+exports.AuthenticatorUser = AuthenticatorUser;
+exports.AuthenticatorUser = AuthenticatorUser = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [UserRepositoryInterface_1.default,
-        HashPassword_1.default])
-], CreateUserService);
-exports.default = CreateUserService;
-//# sourceMappingURL=CreateUserImplement.js.map
+        HashPassword_1.default,
+        jwt_1.JwtService])
+], AuthenticatorUser);
+//# sourceMappingURL=AuthenticateUser.js.map

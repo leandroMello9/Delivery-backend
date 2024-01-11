@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/models/User';
 import HashPassword from 'src/providers/HashPassword';
-import UserRepository from 'src/repository/UserRepository';
-import UserRepositoryInterface from 'src/repository/UserRepositoryInterface';
+import UserRepository from 'src/repository/User/UserRepository';
+import UserRepositoryInterface from 'src/repository/User/UserRepositoryInterface';
 import CreateUserService from 'src/useCases/CreateUser/CreateUserImplement';
 import { UserController } from 'src/user.controller';
 
@@ -13,7 +13,7 @@ import { UserController } from 'src/user.controller';
   providers: [HashPassword, {
     useClass: UserRepository,
     provide: UserRepositoryInterface
-  }, CreateUserService],
+  }, UserRepository, CreateUserService],
   exports: [CreateUserService],
 })
 

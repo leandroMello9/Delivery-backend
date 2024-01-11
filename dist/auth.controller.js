@@ -12,33 +12,27 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
-const User_1 = require("../models/User");
-const typeorm_1 = require("typeorm");
-const typeorm_2 = require("@nestjs/typeorm");
-let CreateUser = class CreateUser {
-    constructor(userRepository, dataSource) {
-        this.userRepository = userRepository;
-        this.dataSource = dataSource;
+const AuthenticateUser_1 = require("./useCases/Authenticate/AuthenticateUser");
+let AuthController = class AuthController {
+    constructor(authService) {
+        this.authService = authService;
     }
-    async create({ user_email, user_password }) {
-        const usr = this.userRepository.create({
-            user_email,
-            user_password,
-            is_active: true
-        });
-        return await this.userRepository.save(usr);
+    async auth(usr) {
+        return this.authService.auth(usr.user_email, usr.user_password);
     }
-    async findOneUser(user_id) {
-        return;
-    }
-    ;
 };
-CreateUser = __decorate([
-    (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_2.InjectRepository)(User_1.User)),
-    __metadata("design:paramtypes", [typeorm_1.Repository,
-        typeorm_1.DataSource])
-], CreateUser);
-exports.default = CreateUser;
-//# sourceMappingURL=UserRepository.js.map
+exports.AuthController = AuthController;
+__decorate([
+    (0, common_1.Post)("/auth"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "auth", null);
+exports.AuthController = AuthController = __decorate([
+    (0, common_1.Controller)(),
+    __metadata("design:paramtypes", [AuthenticateUser_1.AuthenticatorUser])
+], AuthController);
+//# sourceMappingURL=auth.controller.js.map

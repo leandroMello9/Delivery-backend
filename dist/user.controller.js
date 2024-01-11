@@ -22,11 +22,21 @@ let UserController = class UserController {
     getHello() {
         return "Hello World";
     }
-    async create(user) {
-        return await this.userService.execute({
-            user_email: user.user_email,
-            user_password: user.user_password
-        });
+    async create(user, response) {
+        try {
+            return await this.userService.execute({
+                user_email: user.user_email,
+                user_password: user.user_password
+            });
+        }
+        catch (error) {
+            throw new common_1.HttpException({
+                status: common_1.HttpStatus.BAD_REQUEST,
+                error: 'User already exist, use a e-mail different!'
+            }, common_1.HttpStatus.BAD_REQUEST, {
+                cause: error
+            });
+        }
     }
 };
 exports.UserController = UserController;
@@ -39,8 +49,9 @@ __decorate([
 __decorate([
     (0, common_1.Post)("/createUser"),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "create", null);
 exports.UserController = UserController = __decorate([

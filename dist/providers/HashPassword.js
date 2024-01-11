@@ -13,7 +13,7 @@ let HashPassword = class HashPassword {
         return (0, bcryptjs_1.hash)(payload, 8);
     }
     async compareHash(payload, hashed) {
-        return (0, bcryptjs_1.compare)(payload, hashed);
+        return await (0, bcryptjs_1.compare)(payload, hashed);
     }
 };
 HashPassword = __decorate([

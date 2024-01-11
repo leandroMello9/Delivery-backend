@@ -2,7 +2,7 @@ import CreateUserInterface from './CreateUserInterface';
 import UserDto from 'src/dtos/response/UserDto';
 import CreateUserDto from 'src/dtos/request/CreateUserDto';
 import HashPassword from 'src/providers/HashPassword';
-import UserRepositoryInterface from 'src/repository/UserRepositoryInterface';
+import UserRepositoryInterface from 'src/repository/User/UserRepositoryInterface';
 export default class CreateUserService implements CreateUserInterface {
     private userRepostory;
     private hashPassword;

@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import UserRepositoryInterface from "./UserRepositoryInterface";
 import CreateUserDto from "src/dtos/request/CreateUserDto";
 import { User } from "src/models/User";
 import { DataSource, Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
+import UserRepositoryInterface  from "./UserRepositoryInterface";
 
 
 @Injectable()
@@ -14,7 +14,6 @@ export default class CreateUser implements UserRepositoryInterface {
         @InjectRepository(User)
         private userRepository: Repository<User>,
 
-        private dataSource: DataSource
     ) {}
     async create ({ user_email, user_password }: CreateUserDto): Promise<User> {
 
@@ -27,7 +26,13 @@ export default class CreateUser implements UserRepositoryInterface {
         return await this.userRepository.save(usr);
     }
 
-    async findOneUser(user_id: string): Promise<User> {
-        return;
+    async findOneUserByUserEmail(user_email: string): Promise<User> {
+
+        const usr = await this.userRepository.findOne({
+            where: {
+                user_email
+            }
+        })
+        return usr;
     };
 }
