@@ -11,7 +11,7 @@ export class Users1704816687508 implements MigrationInterface {
                         name: "user_id",
                         type: "varchar",
                         isPrimary: true,
-                        generationStrategy: 'uuid'
+                        generationStrategy: 'uuid',
                     },
                     {
                         name: "user_email",
@@ -21,21 +21,32 @@ export class Users1704816687508 implements MigrationInterface {
                     {
                         name: "user_password",
                         type: "varchar",
+                        isNullable: false
                     },
                     {
                         name: "is_active",
-                        type: "boolean"
+                        type: "boolean",
+                        isNullable: false
+                        
+                    },
+                    {
+                        name: "is_provider",
+                        type: "boolean",
+                        isNullable: false
                         
                     },
                     {
                         name: "created_at",
                         type: "timestamp",
                         default: "now()",
+                        isNullable: false
                     },
                     {
                         name: "updated_at",
                         type: "timestamp",
                         default: "now()",
+                        isNullable: false
+
                     },
                 ]
             })

@@ -30,9 +30,16 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "user_password", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: true }),
+    (0, typeorm_1.Column)({ default: true, nullable: false }),
     __metadata("design:type", Boolean)
 ], User.prototype, "is_active", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        default: false,
+        nullable: false
+    }),
+    __metadata("design:type", Boolean)
+], User.prototype, "is_provider", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" }),
     __metadata("design:type", Date)

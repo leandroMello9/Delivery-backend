@@ -9,27 +9,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const User_1 = require("./models/User");
 const user_module_1 = require("./modules/user.module");
+const config_1 = require("@nestjs/config");
+const typeorm_config_1 = require("./config/typeorm.config");
 const auth_module_1 = require("./modules/auth.module");
+const store_module_1 = require("./modules/store.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'postgres',
-                host: 'localhost',
-                port: 5432,
-                username: 'leo',
-                password: '1234',
-                database: 'Delivery',
-                entities: [User_1.User],
-                synchronize: true,
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                load: [typeorm_config_1.default],
+            }),
+            typeorm_1.TypeOrmModule.forRootAsync({
+                inject: [config_1.ConfigService],
+                useFactory: async (configService) => {
+                    return configService.get('typeorm');
+                },
             }),
             user_module_1.UsersModule,
-            auth_module_1.AuthModule
+            auth_module_1.AuthModule,
+            store_module_1.StoreModule
         ],
         controllers: [],
         providers: [],

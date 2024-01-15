@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './models/User';
 import { UsersModule } from './modules/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeormConfig from './config/typeorm.config';
 import { AuthModule } from './modules/auth.module';
+import { StoreModule } from './modules/store.module';
 
 
 @Module({
@@ -21,7 +21,8 @@ import { AuthModule } from './modules/auth.module';
     }),
     
     UsersModule,
-    AuthModule
+    AuthModule,
+    StoreModule
   ],
   controllers: [],
   providers: [],

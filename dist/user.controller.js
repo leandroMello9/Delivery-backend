@@ -24,10 +24,11 @@ let UserController = class UserController {
     }
     async create(user, response) {
         try {
-            return await this.userService.execute({
+            const userCreated = await this.userService.execute({
                 user_email: user.user_email,
                 user_password: user.user_password
             });
+            return response.status(common_1.HttpStatus.CREATED).json(userCreated);
         }
         catch (error) {
             throw new common_1.HttpException({

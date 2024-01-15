@@ -22,10 +22,13 @@ export class UserController {
   @Post("/createUser")
   async create(@Body() user: CreateUserDto, @Res() response: Response ) {
       try {
-        return await this.userService.execute({
+
+        const userCreated = await this.userService.execute({
           user_email: user.user_email,
           user_password: user.user_password
-         });
+         })
+        return response.status(HttpStatus.CREATED).json(userCreated);
+       
       }catch(error) {
         throw new HttpException({
           status: HttpStatus.BAD_REQUEST,

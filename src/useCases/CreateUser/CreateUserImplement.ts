@@ -33,7 +33,8 @@ export default class CreateUserService implements CreateUserInterface {
      const userReturned: UserDto = {
        user_id: usr.user_id,
        user_email: usr.user_email,
-       is_active: true
+       is_active: true,
+       is_provider: usr.is_provider,
 
      }
      return userReturned;

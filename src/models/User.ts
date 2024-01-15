@@ -13,8 +13,14 @@ export class User {
   @Column({nullable: false})
   user_password: string;
 
-  @Column({ default: true })
+  @Column({ default: true, nullable: false })
   is_active: boolean;
+
+  @Column({
+    default: false,
+    nullable: false
+  })
+  is_provider: boolean
 
   @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
   public created_at: Date;
