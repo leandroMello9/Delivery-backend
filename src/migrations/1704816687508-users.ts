@@ -58,9 +58,18 @@ export class Users1704816687508 implements MigrationInterface {
                 columnNames: ["user_id"]
             })
         )
+        await queryRunner.createIndex(
+            "getUserEmail",
+            new TableIndex({
+                name: "GET_USER_EMAIL",
+                columnNames: ["user_email"]
+            })
+        )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropIndex("getUserId", "GET_USER_ID");
+        await queryRunner.dropIndex("getUserEmail", "GET_USER_EMAIL");
         await queryRunner.dropTable("users")
     }
 

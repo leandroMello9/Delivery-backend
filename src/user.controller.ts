@@ -1,11 +1,7 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Inject, Post, Req, Res, UseGuards } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Body, Controller, HttpException, HttpStatus, Post, Res } from '@nestjs/common';
 import CreateUserDto from './dtos/request/CreateUserDto';
-import { User } from './models/User';
 import CreateUserService  from './useCases/CreateUser/CreateUserImplement';
-import UserDto from './dtos/response/UserDto';
 import { Response } from 'express';
-import { AuthGuard } from './midlewares/auth';
 
 @Controller('users')
 export class UserController {
@@ -13,11 +9,6 @@ export class UserController {
     
     private userService: CreateUserService
   ) {}
-
-  @Get('/usersGet')
-  getHello(): string {
-    return "Hello World"
-  }
 
   @Post("/createUser")
   async create(@Body() user: CreateUserDto, @Res() response: Response ) {

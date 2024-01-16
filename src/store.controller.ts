@@ -3,8 +3,6 @@ import { Request, Response } from 'express';
 import { CreateStoreDto } from './dtos/request/CreateStoreDto';
 import { CreateStoreInterface } from './useCases/Store/CreateStoreInterface';
 import { AuthGuard } from './midlewares/auth';
-import { userIdSignIn } from './context/User';
-import { User } from './models/User';
 
 @Controller('store')
 export class StoreController {

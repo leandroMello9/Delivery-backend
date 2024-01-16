@@ -20,9 +20,8 @@ export class AuthenticatorUser {
          if (comparePass === false) {
            throw new UnauthorizedException();
          }
-         const { user_password, ...result } = user;
 
-         const payload = { sub: user.user_id, user_email: user.user_email };
+         const payload = { sub: user.user_id, user_email: user.user_email, is_provider: user.is_provider };
           //TODO: Generate a JWT and return it here
           //instead of the user object
          return {
