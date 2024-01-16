@@ -4,6 +4,5 @@ import { Response } from 'express';
 export declare class UserController {
     private userService;
     constructor(userService: CreateUserService);
-    getHello(): string;
     create(user: CreateUserDto, response: Response): Promise<Response<any, Record<string, any>>>;
 }

@@ -21,6 +21,9 @@ let CreateStore = class CreateStore {
         this.storeRepository = storeRepository;
     }
     async create(store, userSigned) {
+        if (!userSigned.is_provider) {
+            throw new Error('Erro ao criar a loja, verifique se o usuário é um prestador de serviço!');
+        }
         const storeCreated = this.storeRepository.create({
             store_isActivit: store.store_isActivit,
             store_isOpen: store.store_isOpen,

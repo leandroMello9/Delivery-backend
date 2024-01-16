@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { CreateStoreDto } from "src/dtos/request/CreateStoreDto";
 export interface UserLoggedDto {
     sub: string;
+    is_provider: boolean;
 }
 export declare class CreateStore implements CreateStoreInterface {
     private storeRepository;

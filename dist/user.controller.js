@@ -19,9 +19,6 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    getHello() {
-        return "Hello World";
-    }
     async create(user, response) {
         try {
             const userCreated = await this.userService.execute({
@@ -41,12 +38,6 @@ let UserController = class UserController {
     }
 };
 exports.UserController = UserController;
-__decorate([
-    (0, common_1.Get)('/usersGet'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], UserController.prototype, "getHello", null);
 __decorate([
     (0, common_1.Post)("/createUser"),
     __param(0, (0, common_1.Body)()),

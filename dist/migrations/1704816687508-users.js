@@ -51,8 +51,14 @@ class Users1704816687508 {
             name: "GET_USER_ID",
             columnNames: ["user_id"]
         }));
+        await queryRunner.createIndex("getUserEmail", new typeorm_1.TableIndex({
+            name: "GET_USER_EMAIL",
+            columnNames: ["user_email"]
+        }));
     }
     async down(queryRunner) {
+        await queryRunner.dropIndex("getUserId", "GET_USER_ID");
+        await queryRunner.dropIndex("getUserEmail", "GET_USER_EMAIL");
         await queryRunner.dropTable("users");
     }
 }

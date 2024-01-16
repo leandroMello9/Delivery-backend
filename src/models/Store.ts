@@ -11,6 +11,8 @@ export class Store {
   @Column()
   provider_id: string;
 
+
+
   @OneToOne(type => User)
   @JoinColumn({
     name: 'provider_id'

@@ -28,9 +28,17 @@ let StoreController = class StoreController {
             return response.status(common_1.HttpStatus.CREATED).json(userCreated);
         }
         catch (error) {
+            if (error instanceof Error) {
+                throw new common_1.HttpException({
+                    status: common_1.HttpStatus.BAD_REQUEST,
+                    error: error.message
+                }, common_1.HttpStatus.BAD_REQUEST, {
+                    cause: error
+                });
+            }
             throw new common_1.HttpException({
                 status: common_1.HttpStatus.BAD_REQUEST,
-                error: 'Erro ao criar a loja, verifique se esse prestador já possui ula loja!'
+                error: 'Erro ao criar a loja, verifique se esse prestador já possui uma loja!'
             }, common_1.HttpStatus.BAD_REQUEST, {
                 cause: error
             });

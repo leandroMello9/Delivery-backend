@@ -8,7 +8,7 @@ declare const _default: (() => {
     username: string;
     password: string;
     database: string;
-    entities: (typeof Store | typeof User)[];
+    entities: (typeof User | typeof Store)[];
     migrations: string[];
     autoLoadEntities: boolean;
     synchronize: boolean;
@@ -22,7 +22,7 @@ declare const _default: (() => {
     username: string;
     password: string;
     database: string;
-    entities: (typeof Store | typeof User)[];
+    entities: (typeof User | typeof Store)[];
     migrations: string[];
     autoLoadEntities: boolean;
     synchronize: boolean;

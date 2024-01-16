@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeormConfig from './config/typeorm.config';
 import { AuthModule } from './modules/auth.module';
 import { StoreModule } from './modules/store.module';
+import { DeliveryModule } from './modules/delivery.module';
 
 
 @Module({
@@ -22,7 +23,8 @@ import { StoreModule } from './modules/store.module';
     
     UsersModule,
     AuthModule,
-    StoreModule
+    StoreModule,
+    DeliveryModule
   ],
   controllers: [],
   providers: [],

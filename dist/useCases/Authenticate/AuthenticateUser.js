@@ -26,8 +26,7 @@ let AuthenticatorUser = class AuthenticatorUser {
         if (comparePass === false) {
             throw new common_1.UnauthorizedException();
         }
-        const { user_password, ...result } = user;
-        const payload = { sub: user.user_id, user_email: user.user_email };
+        const payload = { sub: user.user_id, user_email: user.user_email, is_provider: user.is_provider };
         return {
             access_token: await this.jwtService.signAsync(payload)
         };
